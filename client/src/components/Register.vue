@@ -1,7 +1,8 @@
 <template lang="html">
   <div class="">
     <h1>Register</h1>
-
+    <div v-html="error" class="error"></div>
+    <br />
     <input type="email" name="email" v-model="email" placeholder="Please enter email" >
     <br />
     <input type="password" name="password" v-model="password" placeholder="Please enter password">
@@ -18,19 +19,27 @@ export default {
   data () {
     return {
       email: '',
-      password: ''
+      password: '',
+      error: null
     }
   },
   methods: {
     async register () {
-      await AuthenticationService.register({
-        email: this.email,
-        password: this.password
-      })
+      try {
+        await AuthenticationService.register({
+          email: this.email,
+          password: this.password
+        })
+      } catch (error) {
+        this.error = error.response.data.error
+      }
     }
   }
 }
 </script>
 
 <style lang="css">
+.error {
+  color: red;
+}
 </style>
