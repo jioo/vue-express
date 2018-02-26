@@ -6,22 +6,28 @@
           <v-toolbar-title>Register</v-toolbar-title>
         </v-toolbar>
         <div class="pl-4 pr-4 pt-2 pb-2">
-          <div v-html="error" class="error"></div>
+          <div v-html="error"></div>
           <br />
 
-          <v-text-field
-            label="Email"
-            v-model="email"
-          ></v-text-field>
+          <form
+            name="form"
+            autocomplete="off">
 
-          <br />
+            <v-text-field
+              label="Email"
+              v-model="email"
+            ></v-text-field>
+            <br />
 
-          <v-text-field
-            type="password"
-            label="Password"
-            v-model="password"
-          ></v-text-field>
-          <br />
+            <v-text-field
+              type="password"
+              label="Password"
+              v-model="password"
+              autocomplete="new-password"
+            ></v-text-field>
+            <br />
+
+          </form>
           <v-btn
             dark
             type="button"
@@ -62,7 +68,4 @@ export default {
 </script>
 
 <style lang="css">
-.error {
-  color: red;
-}
 </style>
