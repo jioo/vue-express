@@ -12,11 +12,12 @@ Vue.config.productionTip = false
 
 Vue.use(Vuetify)
 
-sync(stor, router)
+sync(store, router)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })
