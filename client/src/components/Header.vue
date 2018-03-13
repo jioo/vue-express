@@ -3,7 +3,7 @@
     <v-toolbar-title class="mr-4">
       <v-btn
         flat dark
-        @click="navigateTo({name: 'root'})">
+        :to="{name: 'root'}">
           Tab Tracker
       </v-btn>
     </v-toolbar-title>
@@ -12,7 +12,7 @@
       <v-btn
         flat
         dark
-        @click="navigateTo({name: 'songs'})">
+        :to="{name: 'songs'}">
         Browse
       </v-btn>
     </v-toolbar-items>
@@ -24,14 +24,14 @@
       <v-btn
         flat
         dark
-        @click="navigateTo({name: 'login'})">
+        :to="{name: 'login'}">
         Login
       </v-btn>
 
       <v-btn
         flat
         dark
-        @click="navigateTo({name: 'register'})">
+        :to="{name: 'register'}">
         Sign up
       </v-btn>
     </v-toolbar-items>
@@ -51,9 +51,6 @@
 <script>
 export default {
   methods: {
-    navigateTo (route) {
-      this.$router.push(route)
-    },
     logout () {
       this.$store.dispatch('setToken', null)
       this.$store.dispatch('setUser', null)

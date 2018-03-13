@@ -1,37 +1,53 @@
 <template lang="html">
-  <v-layout>
+  <v-layout wrap row>
+    <v-flex md12>
+      <v-alert type="error" class="mb-2" :value="error">
+        {{ error }}
+      </v-alert>
+    </v-flex>
+
     <v-flex md4>
       <panel title="Song Metadata">
-        <div v-html="error"></div>
-        <br />
 
         <v-text-field
           label="Title"
+          required
+          :rules="[required]"
           v-model="song.title"
         ></v-text-field>
 
         <v-text-field
           label="Artist"
+          required
+          :rules="[required]"
           v-model="song.artist"
         ></v-text-field>
 
         <v-text-field
           label="Genre"
+          required
+          :rules="[required]"
           v-model="song.genre"
         ></v-text-field>
 
         <v-text-field
           label="Album"
+          required
+          :rules="[required]"
           v-model="song.album"
         ></v-text-field>
 
         <v-text-field
           label="Image URL"
+          required
+          :rules="[required]"
           v-model="song.albumImageUrl"
         ></v-text-field>
 
         <v-text-field
           label="Youtube ID"
+          required
+          :rules="[required]"
           v-model="song.youtubeId"
         ></v-text-field>
       </panel>
@@ -41,12 +57,16 @@
         <v-text-field
           label="Tab"
           multi-line
+          required
+          :rules="[required]"
           v-model="song.tab"
         ></v-text-field>
 
         <v-text-field
           label="Lyrics"
           multi-line
+          required
+          :rules="[required]"
           v-model="song.lyrics"
         ></v-text-field>
       </panel>
@@ -77,7 +97,8 @@ export default {
         youtubeId: null,
         lyrics: null,
         tab: null
-      }
+      },
+      required: (value) => !!value || 'This field is required.'
     }
   },
   components: {
@@ -85,6 +106,15 @@ export default {
   },
   methods: {
     async create () {
+      // Validation
+      const isFormValid = Object
+        .keys(this.song)
+        .every(key => !!this.song[key])
+      if (!isFormValid) {
+        this.error = 'Please fill in all the required fields.'
+        return
+      }
+
       try {
         await SongsService.post(this.song)
         this.$router.push({
