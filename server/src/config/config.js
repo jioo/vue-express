@@ -1,3 +1,5 @@
+const path = require('path')
+
 module.exports = {
   port: process.env.PORT || 8082,
   db: {
@@ -6,7 +8,8 @@ module.exports = {
     password: '',
     options: {
       dialect: 'mysql',
-      host: '127.0.0.1'
+      host: '127.0.0.1',
+      storage: path.resolve(__dirname, '../../tabtracker.sql')
     }
   },
   authentication: {
